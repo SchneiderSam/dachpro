@@ -39,16 +39,21 @@ snow_load_standard, climate_region, snow_zone, ground_snow_load, wind_load_stand
 
 # Results
 result = f"""
+Konstruktions Grundwerte
 Land: {country}
 Gemeindeauswahl (PLZ): {zipcode}
 Geländehöhe: {terrain_elevation} m
 Gebäudehöhe: {building_height} m
 Dachlänge: {roof_length} m
 Gebäudelänge: {building_length} m
+
+Schnee Grundwerte
 Lastnorm Schnee: {snow_load_standard}
 Klimaregion: {climate_region}
 Schneezone: {snow_zone}
 Bodenschneelast: {ground_snow_load}
+
+Wind Grundwerte
 Windlastnorm: {wind_load_standard}
 Windzone: {wind_zone}
 Geländekategorie: {terrain_category}
