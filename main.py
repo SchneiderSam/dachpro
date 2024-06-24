@@ -34,8 +34,16 @@ def get_values():
 
     return snow_load_standard, climate_region, snow_zone, ground_snow_load, wind_load_standard, wind_zone, terrain_category, basic_wind_speed, basic_velocity_pressure
 
-snow_load_standard, climate_region, snow_zone, ground_snow_load, wind_load_standard, wind_zone, terrain_category, basic_wind_speed, basic_velocity_pressure = get_values()
+def get_pv_system():
+    while True:
+        pv_system = input("Soll auf dem Dach eine PV-Anlage installiert werden? (j/n): ").strip().lower()
+        if pv_system in ['j', 'n']:
+            return pv_system
+        else:
+            print("Ungültige Eingabe. Bitte geben Sie 'j' (ja) oder 'n' (nein) ein.")
 
+snow_load_standard, climate_region, snow_zone, ground_snow_load, wind_load_standard, wind_zone, terrain_category, basic_wind_speed, basic_velocity_pressure = get_values()
+pv_system = get_pv_system()
 
 # Results
 result = f"""
@@ -59,6 +67,9 @@ Windzone: {wind_zone}
 Geländekategorie: {terrain_category}
 Grundwindgeschwindigkeit: {basic_wind_speed}
 Grundgeschwindigkeitsdruck: {basic_velocity_pressure}
+
+PV Anlage
+PV Anlage: {pv_system}
 """
 
 print(result)
