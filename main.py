@@ -18,16 +18,18 @@ def get_load_values():
     choice = input("Möchten Sie die Daten manuell (m) eingeben oder die Daten aus der Statiksoftware (s) nehmen? (m/s): ").strip().lower()
 
     if choice == 'm':
-        snow_load_standard = get_value("Bitte geben Sie den Wert für die Lastnorm Schnee ein: ")
-        climate_region = get_value("Bitte geben Sie den Wert für die Klimaregion ein: ")
-        snow_zone = get_value("Bitte geben Sie den Wert für die Schneezone ein: ")
-        ground_snow_load = get_value("Bitte geben Sie den Wert für die Bodenschneelast ein: ")
-        wind_load_standard = get_value("Bitte geben Sie den Wert für die Windlastnorm ein: ")
-        wind_zone = get_value("Bitte geben Sie den Wert für die Windzone ein: ")
-        terrain_category = get_value("Bitte geben Sie den Wert für die Geländekategorie ein: ")
-        basic_wind_speed = get_value("Bitte geben Sie den Wert für die Basiswindgeschwindigkeit ein: ")
-        basic_velocity_pressure = get_value("Bitte geben Sie den Wert für den Basisgeschwindigkeitsdruck ein: ")
+        # Prompt user for manual input of load values
+        snow_load_standard = get_value("Lastnorm Schnee: ")
+        climate_region = get_value("Klimaregion: ")
+        snow_zone = get_value("Schneezone: ")
+        ground_snow_load = get_value("Bodenschneelast: ")
+        wind_load_standard = get_value("Windlastnorm: ")
+        wind_zone = get_value("Windzone: ")
+        terrain_category = get_value("Geländekategorie: ")
+        basic_wind_speed = get_value("Basiswindgeschwindigkeit: ")
+        basic_velocity_pressure = get_value("Basisgeschwindigkeitsdruck: ")
     elif choice == 's':
+        # Use static software data
         snow_load_standard = climate_region = snow_zone = ground_snow_load = wind_load_standard = wind_zone = terrain_category = basic_wind_speed = basic_velocity_pressure = "Siehe Daten aus Statiksoftware"
     else:
         print("Ungültige Auswahl. Bitte wählen Sie 'm' für die manuelle Eingabe oder 's' für die Daten aus Statiksoftware.")
@@ -38,21 +40,20 @@ def get_load_values():
 # PV System
 def get_pv_system():
     while True:
-        pv_system = input("Soll auf dem Dach eine PV-Anlage installiert werden? (j/n): ").strip().lower()
+        pv_system = input("Soll eine PV-Anlage installiert werden? (j/n): ").strip().lower()
         if pv_system in ['j', 'n']:
             return pv_system
         else:
             print("Ungültige Eingabe. Bitte geben Sie 'j' (ja) oder 'n' (nein) ein.")
 
-# PV System
 def get_pv_system_details():
-    pv_model_left = input("Bitte geben Sie das Modell der linken PV-Anlage ein: ")
-    pv_left_distance_to_eaves = get_value("Bitte geben Sie den Abstand der linken PV-Anlage zur Traufe ein: ")
-    pv_left_length = get_value("Bitte geben Sie die Länge der linken PV-Anlage ein: ")
+    pv_model_left = input("Modell der linken PV-Anlage ein: ")
+    pv_left_distance_to_eaves = get_value("Abstand der linken PV-Anlage zur Traufe ein: ")
+    pv_left_length = get_value("Länge der linken PV-Anlage ein: ")
 
-    pv_model_right = input("Bitte geben Sie das Modell der rechten PV-Anlage ein: ")
-    pv_right_distance_to_ridge = get_value("Bitte geben Sie den Abstand der rechten PV-Anlage zum First ein: ")
-    pv_right_length = get_value("Bitte geben Sie die Länge der rechten PV-Anlage ein: ")
+    pv_model_right = input("Modell der rechten PV-Anlage ein: ")
+    pv_right_distance_to_ridge = get_value("Abstand der rechten PV-Anlage zum First ein: ")
+    pv_right_length = get_value("Länge der rechten PV-Anlage ein: ")
 
     return {
         "pv_model_left": pv_model_left,
