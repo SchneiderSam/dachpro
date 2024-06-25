@@ -65,6 +65,7 @@ def get_pv_system_details():
 
 def format_pv_system_details(pv_details):
     return f"""
+PV-Anlage
 PV-Anlage links
 Modell: {pv_details['pv_model_left']}
 PV,li Abstand zur Traufe [m]: {pv_details['pv_left_distance_to_eaves']}
@@ -108,7 +109,6 @@ Geländekategorie: {terrain_category}
 Grundwindgeschwindigkeit: {basic_wind_speed}
 Grundgeschwindigkeitsdruck: {basic_velocity_pressure}
 
-PV Anlage
 {pv_result}
 """
 
