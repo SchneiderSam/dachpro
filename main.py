@@ -6,6 +6,7 @@ building_height = input("Gebäudehöhe [m]: ")
 roof_length = input("Dachlänge [m]: ")
 building_length = input("Gebäudelänge [m]: ")
 
+# Get values
 def get_value(prompt):
     while True:
         try:
@@ -13,7 +14,7 @@ def get_value(prompt):
         except ValueError:
             print("Ungültige Eingabe. Bitte geben Sie eine Zahl ein.")
 
-def get_values():
+def get_load_values():
     choice = input("Möchten Sie die Daten manuell (m) eingeben oder die Daten aus der Statiksoftware (s) nehmen? (m/s): ").strip().lower()
 
     if choice == 'm':
@@ -30,10 +31,11 @@ def get_values():
         snow_load_standard = climate_region = snow_zone = ground_snow_load = wind_load_standard = wind_zone = terrain_category = basic_wind_speed = basic_velocity_pressure = "Siehe Daten aus Statiksoftware"
     else:
         print("Ungültige Auswahl. Bitte wählen Sie 'm' für die manuelle Eingabe oder 's' für die Daten aus Statiksoftware.")
-        return get_values()
+        return get_load_values()
 
     return snow_load_standard, climate_region, snow_zone, ground_snow_load, wind_load_standard, wind_zone, terrain_category, basic_wind_speed, basic_velocity_pressure
 
+# PV System
 def get_pv_system():
     while True:
         pv_system = input("Soll auf dem Dach eine PV-Anlage installiert werden? (j/n): ").strip().lower()
@@ -42,10 +44,48 @@ def get_pv_system():
         else:
             print("Ungültige Eingabe. Bitte geben Sie 'j' (ja) oder 'n' (nein) ein.")
 
-snow_load_standard, climate_region, snow_zone, ground_snow_load, wind_load_standard, wind_zone, terrain_category, basic_wind_speed, basic_velocity_pressure = get_values()
+# PV System
+def get_pv_system_details():
+    pv_model_left = input("Bitte geben Sie das Modell der linken PV-Anlage ein: ")
+    pv_left_distance_to_eaves = get_value("Bitte geben Sie den Abstand der linken PV-Anlage zur Traufe ein: ")
+    pv_left_length = get_value("Bitte geben Sie die Länge der linken PV-Anlage ein: ")
+
+    pv_model_right = input("Bitte geben Sie das Modell der rechten PV-Anlage ein: ")
+    pv_right_distance_to_ridge = get_value("Bitte geben Sie den Abstand der rechten PV-Anlage zum First ein: ")
+    pv_right_length = get_value("Bitte geben Sie die Länge der rechten PV-Anlage ein: ")
+
+    return {
+        "pv_model_left": pv_model_left,
+        "pv_left_distance_to_eaves": pv_left_distance_to_eaves,
+        "pv_left_length": pv_left_length,
+        "pv_model_right": pv_model_right,
+        "pv_right_distance_to_ridge": pv_right_distance_to_ridge,
+        "pv_right_length": pv_right_length
+    }
+
+def format_pv_system_details(pv_details):
+    return f"""
+PV-Anlage links
+Modell: {pv_details['pv_model_left']}
+PV,li Abstand zur Traufe [m]: {pv_details['pv_left_distance_to_eaves']}
+PV,li Länge [m]: {pv_details['pv_left_length']}
+
+PV-Anlage rechts
+Modell: {pv_details['pv_model_right']}
+PV,re Abstand zum First [m]: {pv_details['pv_right_distance_to_ridge']}
+PV,re Länge [m]: {pv_details['pv_right_length']} 
+"""
+
+# Hauptteil des Codes
+snow_load_standard, climate_region, snow_zone, ground_snow_load, wind_load_standard, wind_zone, terrain_category, basic_wind_speed, basic_velocity_pressure = get_load_values()
 pv_system = get_pv_system()
 
-# Results
+if pv_system == 'j':
+    pv_details = get_pv_system_details()
+    pv_result = format_pv_system_details(pv_details)
+else:
+    pv_result = "Es ist keine PV-Anlage geplant.\n"
+
 result = f"""
 Konstruktions Grundwerte
 Land: {country}
@@ -69,7 +109,7 @@ Grundwindgeschwindigkeit: {basic_wind_speed}
 Grundgeschwindigkeitsdruck: {basic_velocity_pressure}
 
 PV Anlage
-PV Anlage: {pv_system}
+{pv_result}
 """
 
 print(result)
