@@ -76,7 +76,7 @@ PV,re Abstand zum First [m]: {pv_details['pv_right_distance_to_ridge']}
 PV,re Länge [m]: {pv_details['pv_right_length']} 
 """
 
-# Hauptteil des Codes
+# Maincode
 snow_load_standard, climate_region, snow_zone, ground_snow_load, wind_load_standard, wind_zone, terrain_category, basic_wind_speed, basic_velocity_pressure = get_load_values()
 pv_system = get_pv_system()
 
